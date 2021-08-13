@@ -405,7 +405,7 @@ function focusIn(container, focus) {
 }
 
 function useWindowEvent(type, listener, options) {
-  if (window) {
+  if (document) {
     window.addEventListener(type, listener, options);
     vue.onUnmounted(function () {
       return window.removeEventListener(type, listener, options);
