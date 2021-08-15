@@ -1099,16 +1099,18 @@ var Dialog = /*#__PURE__*/defineComponent({
     }); // Scroll lock
 
     watchEffect(function (onInvalidate) {
-      if (dialogState.value !== DialogStates.Open) return;
-      var overflow = document.documentElement.style.overflow;
-      var paddingRight = document.documentElement.style.paddingRight;
-      var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.documentElement.style.overflow = 'hidden';
-      document.documentElement.style.paddingRight = scrollbarWidth + "px";
-      onInvalidate(function () {
-        document.documentElement.style.overflow = overflow;
-        document.documentElement.style.paddingRight = paddingRight;
-      });
+      if (typeof window !== "undefined") {
+        if (dialogState.value !== DialogStates.Open) return;
+        var overflow = document.documentElement.style.overflow;
+        var paddingRight = document.documentElement.style.paddingRight;
+        var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.documentElement.style.overflow = 'hidden';
+        document.documentElement.style.paddingRight = scrollbarWidth + "px";
+        onInvalidate(function () {
+          document.documentElement.style.overflow = overflow;
+          document.documentElement.style.paddingRight = paddingRight;
+        });
+      }
     }); // Trigger close when the FocusTrap gets hidden
 
     watchEffect(function (onInvalidate) {
